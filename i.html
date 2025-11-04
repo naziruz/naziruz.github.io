@@ -1,0 +1,229 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>My WordPress & Social Media Skills</title>
+    <style>
+      /* General Reset */
+* {
+    margin: 0;
+    padding: 0;
+    box-sizing: border-box;
+}
+
+body {
+    font-family: Arial, sans-serif;
+    line-height: 1.6;
+    background-color: #f4f4f4;
+    color: #333;
+}
+
+h1, h2, h3 {
+    color: #333;
+}
+
+/* Navigation */
+header {
+    background-color: #333;
+    padding: 1rem;
+}
+
+nav ul {
+    list-style-type: none;
+    display: flex;
+    justify-content: center;
+}
+
+nav ul li {
+    margin: 0 20px;
+}
+
+nav ul li a {
+    color: white;
+    text-decoration: none;
+    font-size: 18px;
+}
+
+/* Sections */
+section {
+    padding: 3rem 2rem;
+    margin-bottom: 2rem;
+}
+
+section h1, section h2 {
+    text-align: center;
+    margin-bottom: 1rem;
+}
+
+/* Skills Section */
+.skill-list {
+    display: flex;
+    justify-content: space-around;
+    flex-wrap: wrap;
+    gap: 20px;
+}
+
+.skill {
+    background-color: #fff;
+    padding: 20px;
+    border-radius: 8px;
+    width: 250px;
+    box-shadow: 0 2px 10px rgba(0, 0, 0, 0.1);
+}
+
+.skill h3 {
+    text-align: center;
+    margin-bottom: 10px;
+}
+
+/* Experience Section */
+.experience {
+    margin-bottom: 20px;
+}
+
+.experience h3 {
+    font-size: 1.2rem;
+    color: #0056b3;
+}
+
+/* Contact Form Section */
+#contact-form {
+    max-width: 500px;
+    margin: 0 auto;
+}
+
+#contact-form input,
+#contact-form textarea {
+    width: 100%;
+    padding: 10px;
+    margin-bottom: 10px;
+    border: 1px solid #ddd;
+    border-radius: 4px;
+}
+
+#contact-form button {
+    width: 100%;
+    padding: 10px;
+    background-color: #0056b3;
+    color: white;
+    border: none;
+    border-radius: 4px;
+    font-size: 16px;
+    cursor: pointer;
+}
+
+#contact-form button:hover {
+    background-color: #004080;
+}
+
+/* Footer */
+footer {
+    text-align: center;
+    padding: 1rem;
+    background-color: #333;
+    color: white;
+    position: fixed;
+    width: 100%;
+    bottom: 0;
+}
+  
+    </style>
+</head>
+<body>
+    <!-- Navigation -->
+    <header>
+        <nav>
+            <ul>
+                <li><a href="#about">About</a></li>
+                <li><a href="#skills">Skills</a></li>
+                <li><a href="#experience">Experience</a></li>
+                <li><a href="#contact">Contact</a></li>
+            </ul>
+        </nav>
+    </header>
+
+    <!-- About Section -->
+    <section id="about">
+        <h1>Welcome to My WordPress & Social Media Management Portfolio</h1>
+        <p>Hello! I'm Naziru Zubairu, a passionate WordPress developer and social media manager. With years of experience, I help businesses grow their online presence through effective website development and social media strategies.</p>
+    </section>
+
+    <!-- Skills Section -->
+    <section id="skills">
+        <h2>My Skills</h2>
+        <div class="skill-list">
+            <div class="skill">
+                <h3>WordPress Development</h3>
+                <p>Designing and developing custom WordPress themes and plugins. I also specialize in creating user-friendly and responsive websites.</p>
+            </div>
+            <div class="skill">
+                <h3>Social Media Management</h3>
+                <p>Managing social media campaigns, creating content, and analyzing performance on platforms like Facebook, Instagram, and Twitter.</p>
+            </div>
+            <div class="skill">
+                <h3>SEO Optimization</h3>
+                <p>Optimizing websites for search engines to increase visibility and drive traffic through SEO best practices.</p>
+            </div>
+        </div>
+    </section>
+
+    <!-- Experience Section -->
+    <section id="experience">
+        <h2>My Experience</h2>
+        <div class="experience">
+            <h3>WordPress Developer at Nazzytech</h3>
+            <p>Developed custom WordPress websites for clients in various industries. Implemented SEO strategies and ensured websites were mobile-responsive.</p>
+        </div>
+        <div class="experience">
+            <h3>Social Media Manager at Nazzytech</h3>
+            <p>Managed the social media presence of the company, growing followers by 40% in the first year and driving engagement through content creation.</p>
+        </div>
+    </section>
+
+    <!-- Contact Form Section -->
+    <section id="contact">
+        <h2>Contact Me</h2>
+        <form id="contact-form">
+            <input type="text" id="name" placeholder="Your Name" required>
+            <input type="email" id="email" placeholder="Your Email" required>
+            <textarea id="message" placeholder="Your Message" required></textarea>
+            <button type="submit">Send Message</button>
+        </form>
+        <p id="response"></p>
+    </section>
+
+    <footer>
+        <p>&copy; 2025 Naziru Zubairu. All Rights Reserved.</p>
+    </footer>
+
+    <script>
+       // JavaScript to handle form submission and provide feedback to the user
+
+document.getElementById('contact-form').addEventListener('submit', function(event) {
+    event.preventDefault(); // Prevent form from refreshing the page
+
+    // Get the values from the form
+    const name = document.getElementById('name').value;
+    const email = document.getElementById('email').value;
+    const message = document.getElementById('message').value;
+
+    // Simple validation
+    if (name && email && message) {
+        // Show success message
+        document.getElementById('response').textContent = "Thank you for your message, " + name + ". I will get back to you shortly!";
+        document.getElementById('response').style.color = "green";
+        
+        // Optionally: Clear form after submission
+        document.getElementById('contact-form').reset();
+    } else {
+        // Show error message
+        document.getElementById('response').textContent = "Please fill out all fields.";
+        document.getElementById('response').style.color = "red";
+    }
+});
+ 
+    </script>
+</body>
+  </html>
+  
