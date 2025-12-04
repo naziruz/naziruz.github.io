@@ -1,229 +1,338 @@
-<!DOCTYPE html>
+<!Doctype html>
 <html lang="en">
 <head>
-    <meta charset="UTF-8">
-    <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>My WordPress & Social Media Skills</title>
-    <style>
-      /* General Reset */
-* {
-    margin: 0;
-    padding: 0;
-    box-sizing: border-box;
-}
+  <meta charset="utf-8" />
+  <meta name="viewport" content="width=device-width,initial-scale=1" />
+  <title>Naziruz — Frontend Portfolio</title>
+  <meta name="description" content="Frontend developer portfolio — responsive single-file template" />
 
-body {
-    font-family: Arial, sans-serif;
-    line-height: 1.6;
-    background-color: #f4f4f4;
-    color: #333;
-}
+  <style>
+    /* Color palette */
+    :root{
+      --bg: #00272b; /* gun metal */
+      --accent: #e0ff4f; /* chartreuse */
+      --max-width: 1100px;
+    }
 
-h1, h2, h3 {
-    color: #333;
-}
+    /* Reset & base */
+    *{box-sizing:border-box}
+    html,body{height:100%}
+    body{
+      margin:0;
+      font-family:Inter, system-ui, -apple-system, "Segoe UI", Roboto, "Helvetica Neue", Arial;
+      background:var(--bg);
+      color:var(--accent);
+      -webkit-font-smoothing:antialiased;
+      -moz-osx-font-smoothing:grayscale;
+      line-height:1.5;
+    }
 
-/* Navigation */
-header {
-    background-color: #333;
-    padding: 1rem;
-}
+    a{color:var(--accent); text-decoration:none}
 
-nav ul {
-    list-style-type: none;
-    display: flex;
-    justify-content: center;
-}
+    /* Container */
+    .container{max-width:var(--max-width); margin:0 auto; padding:1.25rem}
 
-nav ul li {
-    margin: 0 20px;
-}
+    /* NAV */
+    header{position:sticky; top:0; z-index:60; backdrop-filter:blur(6px)}
+    .nav{display:flex; align-items:center; justify-content:space-between; gap:1rem; padding:0.75rem 0}
+    .logo{display:flex; align-items:center; gap:.5rem}
+    .logo img{height:42px; width:42px; object-fit:cover; border-radius:6px}
+    nav a{margin-left:1rem; font-weight:600}
 
-nav ul li a {
-    color: white;
-    text-decoration: none;
-    font-size: 18px;
-}
+    /* Hero / About */
+    .hero{display:grid; grid-template-columns:1fr 1fr; gap:2rem; align-items:center; padding:2.5rem 0}
+    .hero .photo{display:flex; align-items:center; justify-content:center}
+    .hero .photo img{width:100%; max-width:320px; border-radius:14px; border:2px solid rgba(224,255,79,0.08)}
 
-/* Sections */
-section {
-    padding: 3rem 2rem;
-    margin-bottom: 2rem;
-}
+    .intro h1{margin:0 0 .5rem; font-size:clamp(1.6rem,3.8vw,2.4rem)}
+    .typewriter{font-family:monospace; font-size:1.05rem; min-height:3.2rem}
 
-section h1, section h2 {
-    text-align: center;
-    margin-bottom: 1rem;
-}
+    .social{display:flex; gap:.75rem; margin-top:1rem}
+    .social a{display:inline-flex; align-items:center; justify-content:center; width:44px; height:44px; border-radius:8px; border:1px solid rgba(224,255,79,0.12)}
 
-/* Skills Section */
-.skill-list {
-    display: flex;
-    justify-content: space-around;
-    flex-wrap: wrap;
-    gap: 20px;
-}
+    .btn{display:inline-block; padding:.6rem .9rem; border-radius:10px; background:var(--accent); color:var(--bg); font-weight:700; border:none; cursor:pointer}
 
-.skill {
-    background-color: #fff;
-    padding: 20px;
-    border-radius: 8px;
-    width: 250px;
-    box-shadow: 0 2px 10px rgba(0, 0, 0, 0.1);
-}
+    /* Projects */
+    .projects{padding:2rem 0}
+    .slider{position:relative; overflow:hidden; border-radius:14px}
+    .slides{display:flex; transition:transform 0.6s ease}
+    .slide{min-width:100%; position:relative}
+    .slide img{display:block; width:100%; height:360px; object-fit:cover}
 
-.skill h3 {
-    text-align: center;
-    margin-bottom: 10px;
-}
+    /* overlay when image clicked */
+    .overlay{position:absolute; inset:0; display:flex; align-items:center; justify-content:center; gap:.5rem; flex-direction:column; background:linear-gradient(180deg, rgba(0,0,0,0.25), rgba(0,0,0,0.5)); opacity:0; transform:translateY(8px); transition:all .2s ease; pointer-events:none}
+    .slide.show .overlay{opacity:1; transform:translateY(0); pointer-events:auto}
+    .overlay .visit{background:var(--accent); color:var(--bg); padding:.6rem 1rem; border-radius:8px; font-weight:700}
+    .overlay .smalltext{font-size:.9rem; margin-top:.5rem}
 
-/* Experience Section */
-.experience {
-    margin-bottom: 20px;
-}
+    .slider-controls{display:flex; justify-content:center; gap:.5rem; margin-top:.8rem}
+    .dot{width:10px; height:10px; border-radius:50%; background:rgba(224,255,79,0.25); cursor:pointer}
+    .dot.active{background:var(--accent)}
 
-.experience h3 {
-    font-size: 1.2rem;
-    color: #0056b3;
-}
+    .tools{display:flex; gap:1rem; margin-top:1rem; flex-wrap:wrap}
+    .tool{display:flex; gap:.5rem; align-items:center; padding:.6rem .8rem; border-radius:10px; border:1px solid rgba(224,255,79,0.08)}
+    .tool img{width:36px; height:36px; object-fit:contain}
 
-/* Contact Form Section */
-#contact-form {
-    max-width: 500px;
-    margin: 0 auto;
-}
+    /* FAQ */
+    .faq{padding:2rem 0}
+    .qa{border-top:1px solid rgba(224,255,79,0.06); padding:.8rem 0}
+    .q{display:flex; justify-content:space-between; cursor:pointer; gap:1rem}
+    .a{max-height:0; overflow:hidden; transition:max-height .28s ease; color:rgba(224,255,79,0.95)}
+    .qa.open .a{max-height:400px; margin-top:.5rem}
 
-#contact-form input,
-#contact-form textarea {
-    width: 100%;
-    padding: 10px;
-    margin-bottom: 10px;
-    border: 1px solid #ddd;
-    border-radius: 4px;
-}
+    /* Contact */
+    .contact{padding:2rem 0}
+    form{display:grid; gap:.75rem; max-width:640px}
+    input,textarea{background:transparent; border:1px solid rgba(224,255,79,0.12); padding:.6rem .75rem; border-radius:8px; color:var(--accent); outline:none}
+    textarea{min-height:120px; resize:vertical}
 
-#contact-form button {
-    width: 100%;
-    padding: 10px;
-    background-color: #0056b3;
-    color: white;
-    border: none;
-    border-radius: 4px;
-    font-size: 16px;
-    cursor: pointer;
-}
+    /* Footer */
+    footer{padding:2rem 0; text-align:center; opacity:0.9}
 
-#contact-form button:hover {
-    background-color: #004080;
-}
+    /* Responsive */
+    @media (max-width:860px){
+      .hero{grid-template-columns:1fr; text-align:center}
+      .hero .intro{order:2}
+      .hero .photo{order:1}
+      .slide img{height:240px}
+    }
 
-/* Footer */
-footer {
-    text-align: center;
-    padding: 1rem;
-    background-color: #333;
-    color: white;
-    position: fixed;
-    width: 100%;
-    bottom: 0;
-}
-  
-    </style>
+    @media (max-width:420px){
+      nav a{display:none}
+      .logo img{height:36px}
+    }
+  </style>
 </head>
 <body>
-    <!-- Navigation -->
-    <header>
-        <nav>
-            <ul>
-                <li><a href="#about">About</a></li>
-                <li><a href="#skills">Skills</a></li>
-                <li><a href="#experience">Experience</a></li>
-                <li><a href="#contact">Contact</a></li>
-            </ul>
-        </nav>
-    </header>
+  <header class="container">
+    <div class="nav">
+      <div class="logo">
+        <!-- Logo placeholder: replace src with your image -->
+        <img src="https://drive.google.com/file/d/1yJLD3sPsj8Zy00Sdr9SHeTOLsLIUNKx1/view?usp=drivesdk" alt="Logo" />
+        <strong>Naziru Zubairu</strong>
+      </div>
+      <nav>
+        <a href="#about">ABOUT ME</a>
+        <a href="#projects">MY PROJECTS</a>
+        <a href="#contact">CONTACT</a>
+      </nav>
+    </div>
+  </header>
 
-    <!-- About Section -->
-    <section id="about">
-        <h1>Welcome to My WordPress & Social Media Management Portfolio</h1>
-        <p>Hello! I'm Naziru Zubairu, a passionate WordPress developer and social media manager. With years of experience, I help businesses grow their online presence through effective website development and social media strategies.</p>
-    </section>
+  <main class="container">
+    <!-- ABOUT -->
+    <section id="about" class="hero">
+      <div class="photo">
+        <!--my profile image and introduction-->
+        <img src="https://drive.google.com/file/d/19_tzORe7YzUjDXjVFOotEt87VfOcGilQ/view?usp=drivesdk" alt="my photo" />
+      </div>
+      <div class="intro">
+        <h1>Hello, I’m Naziru Zubairu</h1>
+        <div class="typewriter" id="typewriter"></div>
 
-    <!-- Skills Section -->
-    <section id="skills">
-        <h2>My Skills</h2>
-        <div class="skill-list">
-            <div class="skill">
-                <h3>WordPress Development</h3>
-                <p>Designing and developing custom WordPress themes and plugins. I also specialize in creating user-friendly and responsive websites.</p>
-            </div>
-            <div class="skill">
-                <h3>Social Media Management</h3>
-                <p>Managing social media campaigns, creating content, and analyzing performance on platforms like Facebook, Instagram, and Twitter.</p>
-            </div>
-            <div class="skill">
-                <h3>SEO Optimization</h3>
-                <p>Optimizing websites for search engines to increase visibility and drive traffic through SEO best practices.</p>
-            </div>
+        <div class="social" aria-label="social links">
+          <a href="https://www.facebook.com/profile.php?id=61559475989850" title="Facebook profile"><svg width="20" height="20" viewBox="0 0 24 24" fill="none" aria-hidden><path d="M22 12c0-5.523-4.477-10-10-10S2 6.477 2 12c0 4.991 3.657 9.128 8.438 9.877v-6.99H7.898v-2.887h2.54V9.845c0-2.506 1.492-3.89 3.777-3.89 1.094 0 2.238.195 2.238.195v2.46h-1.26c-1.243 0-1.63.772-1.63 1.562v1.875h2.773l-.443 2.887h-2.33v6.99C18.343 21.128 22 16.991 22 12z" fill="currentColor" /></svg></a>
+          <a href="#" title="LinkedIn (replace)"><svg width="20" height="20" viewBox="0 0 24 24" fill="none" aria-hidden><path d="M4.98 3.5C4.98 4.88 3.86 6 2.48 6S0 4.88 0 3.5 1.12 1 2.5 1s2.48 1.12 2.48 2.5zM.2 8h4.6V24H.2zM9 8h4.4v2.2h.1c.6-1.1 2.1-2.2 4.4-2.2C23.2 8 24 11 24 15.2V24h-4.6v-8.1c0-1.9 0-4.4-2.7-4.4-2.7 0-3.1 2.1-3.1 4.3V24H9z" fill="currentColor" /></svg></a>
+          <a href="#" title="GitHub (replace)"><svg width="20" height="20" viewBox="0 0 24 24" fill="none" aria-hidden><path d="M12 .5C5.65.5.75 5.4.75 11.8c0 4.9 3.14 9.1 7.5 10.6.55.1.75-.24.75-.54v-1.9c-3.05.66-3.7-1.5-3.7-1.5-.5-1.26-1.2-1.6-1.2-1.6-.98-.67.08-.66.08-.66 1.08.08 1.66 1.12 1.66 1.12.96 1.66 2.52 1.18 3.14.9.1-.7.38-1.18.7-1.45-2.44-.28-5-1.22-5-5.42 0-1.2.42-2.18 1.12-2.95-.12-.28-.5-1.4.1-2.9 0 0 .92-.3 3 .98a10.3 10.3 0 012.75-.38c.94 0 1.88.12 2.76.38 2.08-1.28 3-.98 3-.98.6 1.5.22 2.62.1 2.9.7.77 1.12 1.75 1.12 2.95 0 4.2-2.58 5.14-5.03 5.42.4.34.78 1.04.78 2.1v3.1c0 .32.2.66.76.54 4.36-1.5 7.5-5.7 7.5-10.6C23.25 5.4 18.35.5 12 .5z" fill="currentColor"/></svg></a>
         </div>
+
+        <p style="margin-top:1rem"><a class="btn" id="emailBtn" href="https://mail.google.com/mail/?view=cm&fs=1&to=naziruzubairu544@gmail.com" target="_blank" rel="noreferrer">Email me</a></p>
+      </div>
     </section>
 
-    <!-- Experience Section -->
-    <section id="experience">
-        <h2>My Experience</h2>
-        <div class="experience">
-            <h3>WordPress Developer at Nazzytech</h3>
-            <p>Developed custom WordPress websites for clients in various industries. Implemented SEO strategies and ensured websites were mobile-responsive.</p>
+    <!-- PROJECTS -->
+    <section id="projects" class="projects">
+      <h2>My Projects</h2>
+
+      <div class="slider" aria-roledescription="carousel">
+        <div class="slides" id="slides">
+          <div class="slide">
+            <img src="https://drive.google.com/file/d/12ddP_yBEYSdyaF1V3niCKtN-yKRyUGvM/view?usp=drivesdk" alt="Project 1" data-idx="0" />
+            <div class="overlay">
+              <a class="visit" href="#" target="_blank">Visit</a>
+              <div class="smalltext">E commerce website</div>
+            </div>
+          </div>
+          <div class="slide">
+            <img src="https://drive.google.com/file/d/1vmAugDq8cF6Et2hBdqgQ5HSbfCK9CMnF/view?usp=drivesdk" alt="project 2" data-idx="1" />
+            <div class="overlay">
+              <a class="visit" href="#" target="_blank">Visit</a>
+              <div class="smalltext">School management website</div>
+            </div>
+          </div>
+          <div class="slide">
+            <img src="https://drive.google.com/file/d/1dyTVOFPlkYmLf99mBY9uLidmPFYDM1iB/view?usp=drivesdk" alt="Project 3" data-idx="2" />
+            <div class="overlay">
+              <a class="visit" href="#" target="_blank">Visit</a>
+              <div class="smalltext">Survey site</div>
+            </div>
+          </div>
         </div>
-        <div class="experience">
-            <h3>Social Media Manager at Nazzytech</h3>
-            <p>Managed the social media presence of the company, growing followers by 40% in the first year and driving engagement through content creation.</p>
-        </div>
+      </div>
+
+      <div class="slider-controls" id="dots"></div>
+
+      <div class="tools" aria-label="my tools">
+        <div class="tool"><img src="https://drive.google.com/file/d/1v-Gv3avxAxAmswDX8g-JC6-QWWXyk8S7/view?usp=drivesdk" alt="HTML" /><strong>HTML</strong></div>
+        <div class="tool"><img src="https://drive.google.com/file/d/1OrWITD-LSpJRnbyIWC52fU43e0SGvmpV/view?usp=drivesdk" alt="CSS" /><strong>CSS</strong></div>
+        <div class="tool"><img src="https://drive.google.com/file/d/1SUe3PXLL9-qB71cMJ0KjHY3bpwaL6UOr/view?usp=drivesdk" alt="JavaScript" /><strong>JAVASCRIPT</strong></div>
+        <div class="tool"><img src="https://drive.google.com/file/d/1s0Xpq6YyIC9wRrm6lSEUy1uunSwoT4c2/view?usp=drivesdk" alt="React" /><strong>REACT.JS</strong></div>
+      </div>
     </section>
 
-    <!-- Contact Form Section -->
-    <section id="contact">
-        <h2>Contact Me</h2>
-        <form id="contact-form">
-            <input type="text" id="name" placeholder="Your Name" required>
-            <input type="email" id="email" placeholder="Your Email" required>
-            <textarea id="message" placeholder="Your Message" required></textarea>
-            <button type="submit">Send Message</button>
-        </form>
-        <p id="response"></p>
+    <!-- FAQ -->
+    <section id="faq" class="faq">
+      <h2>FAQ</h2>
+      <!-- Six QAs -->
+      <div class="qa">
+        <div class="q"> <div>What technologies do you use?</div><div>+</div></div>
+        <div class="a">I use HTML, CSS, JavaScript and React.js. I also use modern tooling for builds and testing.</div>
+      </div>
+      <div class="qa">
+        <div class="q"> <div>How long to build a small website?</div><div>+</div></div>
+        <div class="a">Usually 1–2 weeks depending on complexity. We'll agree on scope and timeline before starting.</div>
+      </div>
+      <div class="qa">
+        <div class="q"> <div>Do you provide maintenance?</div><div>+</div></div>
+        <div class="a">Yes, I offer optional maintenance packages after delivery.</div>
+      </div>
+      <div class="qa">
+        <div class="q"> <div>Can you work with designs I provide?</div><div>+</div></div>
+        <div class="a">Absolutely. I can convert Figma, XD, or image designs to responsive code.</div>
+      </div>
+      <div class="qa">
+        <div class="q"> <div>Will the site be responsive?</div><div>+</div></div>
+        <div class="a">Yes. Every page is built mobile-first and tested on common viewports.</div>
+      </div>
+      <div class="qa">
+        <div class="q"> <div>How can I contact you?</div><div>+</div></div>
+        <div class="a">Use the contact form below or click the Email button to open Gmail.</div>
+      </div>
     </section>
 
-    <footer>
-        <p>&copy; 2025 Naziru Zubairu. All Rights Reserved.</p>
-    </footer>
+    <!-- CONTACT -->
+    <section id="contact" class="contact">
+      <h2>Contact</h2>
+      <form id="contactForm" onsubmit="return false;">
+        <input type="text" id="name" placeholder="Your name" required />
+        <input type="email" id="email" placeholder="Your email" required />
+        <textarea id="message" placeholder="Your message" required></textarea>
+        <div><button class="btn" id="sendBtn">Send</button></div>
+      </form>
+    </section>
 
-    <script>
-       // JavaScript to handle form submission and provide feedback to the user
+  </main>
 
-document.getElementById('contact-form').addEventListener('submit', function(event) {
-    event.preventDefault(); // Prevent form from refreshing the page
+  <footer>
+    <div class="container">© NAZIRU ZUBAIRU</div>
+  </footer>
 
-    // Get the values from the form
-    const name = document.getElementById('name').value;
-    const email = document.getElementById('email').value;
-    const message = document.getElementById('message').value;
+  <script>
+    /*********************** Typewriter ************************/
+    (function(){
+      const el = document.getElementById('typewriter');
+      const lines = [
+        "I build clean, responsive websites.",
+        "I turn designs into working user interfaces.",
+        "I love JavaScript and React.js."
+      ];
+      let l=0, ch=0, forward=true, line='';
 
-    // Simple validation
-    if (name && email && message) {
-        // Show success message
-        document.getElementById('response').textContent = "Thank you for your message, " + name + ". I will get back to you shortly!";
-        document.getElementById('response').style.color = "green";
-        
-        // Optionally: Clear form after submission
-        document.getElementById('contact-form').reset();
-    } else {
-        // Show error message
-        document.getElementById('response').textContent = "Please fill out all fields.";
-        document.getElementById('response').style.color = "red";
-    }
-});
- 
-    </script>
+      function tick(){
+        const full = lines[l];
+        if(forward){
+          ch++;
+          line = full.slice(0,ch);
+          el.textContent = line + '|';
+          if(ch===full.length){ forward=false; setTimeout(tick,900); return }
+        } else {
+          ch--;
+          line = full.slice(0,ch);
+          el.textContent = line + '|';
+          if(ch===0){ forward=true; l=(l+1)%lines.length }
+        }
+        setTimeout(tick, forward?80:30);
+      }
+      tick();
+    })();
+
+    /*********************** Slider ************************/
+    (function(){
+      const slidesEl = document.getElementById('slides');
+      const slides = Array.from(slidesEl.children);
+      const dotsEl = document.getElementById('dots');
+      let idx = 0;
+      const total = slides.length;
+      let interval = null;
+
+      function go(i){
+        idx = (i + total) % total;
+        slidesEl.style.transform = `translateX(-${idx * 100}%)`;
+        Array.from(dotsEl.children).forEach((d,di)=>d.classList.toggle('active', di===idx));
+      }
+
+      function start(){ interval = setInterval(()=> go(idx+1), 4000) }
+      function stop(){ clearInterval(interval) }
+
+      // build dots
+      for(let i=0;i<total;i++){
+        const d = document.createElement('div'); d.className='dot' + (i===0?' active':''); d.addEventListener('click', ()=>{ stop(); go(i); start() }); dotsEl.appendChild(d);
+      }
+
+      // clicking image toggles overlay
+      slides.forEach(s=>{
+        const img = s.querySelector('img');
+        if(img) img.addEventListener('click', ()=>{
+          slides.forEach(x=>x.classList.remove('show'));
+          s.classList.toggle('show');
+        });
+      });
+
+      // close overlay when clicking outside
+      document.addEventListener('click', (e)=>{
+        if(!e.target.closest('.slide')) slides.forEach(x=>x.classList.remove('show'));
+      });
+
+      start();
+      // pause on hover
+      slidesEl.addEventListener('mouseenter', stop);
+      slidesEl.addEventListener('mouseleave', start);
+    })();
+
+    /*********************** FAQ Accordion ************************/
+    (function(){
+      document.querySelectorAll('.faq .qa').forEach(q=>{
+        const head = q.querySelector('.q');
+        if(head) head.addEventListener('click', ()=> q.classList.toggle('open'));
+      });
+    })();
+
+    /*********************** Contact form ************************/
+    (function(){
+      const sendBtn = document.getElementById('sendBtn');
+      if(sendBtn){
+        sendBtn.addEventListener('click', function(e){
+          const name = document.getElementById('name').value.trim();
+          const email = document.getElementById('email').value.trim();
+          const message = document.getElementById('message').value.trim();
+          if(!name||!email||!message){ alert('Please complete the form.'); return }
+          alert('I received your message, I will get back to you shortly.');
+          document.getElementById('contactForm').reset();
+        });
+      }
+    })();
+
+    /*********************** Smooth scrolling for nav ************************/
+    (function(){
+      document.querySelectorAll('header nav a').forEach(a=>{
+        a.addEventListener('click', (e)=>{
+          e.preventDefault();
+          const id = a.getAttribute('href').slice(1);
+          const target = document.getElementById(id);
+          if(target) target.scrollIntoView({behavior:'smooth', block:'start'});
+        });
+      });
+    })();
+  </script>
 </body>
-  </html>
-  
+</html>
